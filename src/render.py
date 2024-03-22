@@ -14,6 +14,10 @@ path = "/Users/isacfiorotti/Library/CloudStorage/OneDrive-TheUniversityofNotting
 header_names = ['Time(s)', 'Arterial pressure (mmHg)', 'Aortic Doppler (kHz)',
        'Mesenteric Doppler (kHz)', 'Renal Doppler (kHz)']
 
+#plot dimensions
+width = 1000
+height = 400
+
 #---------------------------------------------------------------------------------#
 
 #TODO: Make wrapper function to read data that is able to handle more features 
@@ -32,19 +36,21 @@ ddf['Time(s)'] = dd.to_datetime(ddf['Time(s)'], format='%H:%M:%S.%f').astype('in
 
 #---------------------------------------------------------------------------------#
 
-def rasterise(df):
+def rasterise(df, width, height):
     """Rasterises Dask DataFrame using Datashader.
 
     Args:
         df (ddf.dataframe.DataFrame): A dask DataFrame containing the data to be plotted.
+        width (int): The width of the rendered image.
+        height (int): The height of the rendered image.
+
     Returns:
         PIL.Image.Image: The rendered image of the line plot.
     """
 
     canvas = ds.Canvas(
-
-        plot_width=1000,
-        plot_height=400
+        plot_width=width,
+        plot_height=height
     )
     agg = canvas.line(
         df,
