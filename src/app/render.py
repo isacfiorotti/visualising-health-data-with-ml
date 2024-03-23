@@ -75,7 +75,7 @@ def plot_raster(df, width, height, x_feat, y_feat):
     fig.update_layout(
         title='Line Plot using Datashader and Plotly',
     )
-    fig.show()
+
     print("Image displayed successfully.")
 
 #---------------------------------------------------------------------------------#

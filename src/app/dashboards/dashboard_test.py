@@ -1,4 +1,8 @@
-import render as rd
+import dash
+from dash import dcc, html
+import plotly.graph_objs as go
+from app import render as rd
+import plotly.express as px
 
 #---------------------------------------------------------------------------------#
 
@@ -17,13 +21,25 @@ height = 400
 
 #---------------------------------------------------------------------------------#
 
-def main():
-
-    # Read data
+def build_graph():
     ddf = rd.read_csv(path, header_names)
-    rd.plot_raster(ddf, width, height, x_feat, y_feat)
+    img = rd.rasterise(ddf.compute(), width, height, x_feat, y_feat)
+    fig = px.imshow(img)
+    return fig
 
-    return None
 
-if __name__ == "__main__":
-    main()
+def init_dashboard(server):
+    dash_app = dash.Dash(
+        server=server,
+        routes_pathname_prefix='/dashapp/'
+    )
+
+    dash_app.layout = html.Div([
+        html.H1('My Dash Application'),
+        dcc.Graph(
+            id='dash-container',
+            figure=build_graph()
+        )
+    ])
+
+    return dash_app.server
