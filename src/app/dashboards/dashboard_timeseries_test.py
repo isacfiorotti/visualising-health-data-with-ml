@@ -31,7 +31,7 @@ def build_graph():
 def init_dashboard(server):
     dash_app = dash.Dash(
         server=server,
-        routes_pathname_prefix='/dashapp/'
+        routes_pathname_prefix='/dashtime/'
     )
 
     dash_app.layout = html.Div([
