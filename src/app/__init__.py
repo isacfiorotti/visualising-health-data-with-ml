@@ -1,5 +1,6 @@
 from flask import Flask
-from .dashboards.dashboard_test import init_dashboard
+from .dashboards.timeseries import init_timeseries_dashboard
+from .dashboards.treemap import init_tree_dashboard
 
 # Flask app
 
@@ -8,7 +9,8 @@ def init_app():
     
     with app.app_context():
         from . import routes
-        app = init_dashboard(app)
+        app = init_timeseries_dashboard(app)
+        app = init_tree_dashboard(app)
 
     return app
 

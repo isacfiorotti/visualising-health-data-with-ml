@@ -16,10 +16,12 @@ path = "/Users/isacfiorotti/Library/CloudStorage/OneDrive-TheUniversityofNotting
 header_names = ['Time(s)', 'Arterial pressure (mmHg)', 'Aortic Doppler (kHz)',
        'Mesenteric Doppler (kHz)', 'Renal Doppler (kHz)']
 
-width = 1000
+width = 50000
 height = 400
 
 #---------------------------------------------------------------------------------#
+
+# Builder for timeseries graph.
 
 def build_graph():
     ddf = rd.read_csv(path, header_names)
@@ -28,18 +30,18 @@ def build_graph():
     return fig
 
 
-def init_dashboard(server):
+def init_timeseries_dashboard(server):
     dash_app = dash.Dash(
         server=server,
         routes_pathname_prefix='/dashtime/'
     )
 
-    dash_app.layout = html.Div([
-        html.H1('My Dash Application'),
+    dash_app.layout = html.Div(
         dcc.Graph(
             id='dash-container',
             figure=build_graph()
         )
-    ])
+    )
 
     return dash_app.server
+
